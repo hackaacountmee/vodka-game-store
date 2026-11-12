@@ -2,89 +2,494 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vodka Game</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VODKA GAME - Top Up Game</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      margin: 0;
-      background: #0f172a;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: #eeeeF3;
+  color: #171936;
+}
 
-    header {
-      background: #172554;
-      padding: 22px;
-      text-align: center;
-    }
+header {
+  background: #11143f;
+  color: white;
+  padding: 20px;
+}
 
-    header h2 {
-      color: #38bdf8;
-    }
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-    main {
-      padding: 20px;
-    }
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  color: #e8c878;
+}
 
-    .game {
-      background: #1e293b;
-      padding: 18px;
-      border-radius: 12px;
-      margin-bottom: 15px;
-    }
+.menu {
+  font-size: 23px;
+}
 
-    button {
-      background: #2563eb;
-      color: white;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      width: 100%;
-    }
-  </style>
+.banner {
+  margin: 20px 0;
+  padding: 35px 20px;
+  border-radius: 15px;
+  background: linear-gradient(120deg,#11143f,#343c80);
+  color: white;
+  text-align: center;
+}
+
+.banner h1 {
+  color: #e8c878;
+  font-size: 29px;
+  margin-bottom: 12px;
+}
+
+.banner p {
+  font-size: 14px;
+}
+
+.container {
+  padding: 20px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  border: none;
+  padding: 13px 22px;
+  border-radius: 12px;
+  background: white;
+  color: #171936;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.tabs button.active {
+  background: #11143f;
+  color: white;
+}
+
+.search {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  margin-bottom: 22px;
+  outline: none;
+}
+
+.section-title {
+  margin: 10px 0 18px;
+  font-size: 19px;
+}
+
+.games {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 13px;
+}
+
+.game {
+  background: white;
+  border-radius: 14px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 3px 10px #00000010;
+  cursor: pointer;
+}
+
+.game img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.game h3 {
+  font-size: 14px;
+  padding: 12px 0 8px;
+}
+
+.game:active {
+  transform: scale(.97);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #0009;
+  z-index: 10;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  max-width: 450px;
+  margin: 30px auto;
+  padding: 22px;
+  border-radius: 18px;
+}
+
+.close {
+  float: right;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.modal h2 {
+  margin: 15px 0;
+}
+
+.modal input {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+.nominals {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.nominal {
+  padding: 14px 8px;
+  background: #f0f1f8;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.nominal.selected {
+  border-color: #202c85;
+  background: #e7eaff;
+}
+
+.nominal b {
+  display: block;
+  margin-top: 6px;
+}
+
+.order {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  background: #151a50;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 12px;
+}
+
+footer {
+  margin-top: 30px;
+  padding: 25px;
+  text-align: center;
+  background: #11143f;
+  color: white;
+  font-size: 13px;
+}
+
+.help {
+  position: fixed;
+  bottom: 20px;
+  right: 18px;
+  background: #151a50;
+  color: white;
+  padding: 14px 20px;
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 3px 10px #0004;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h2>Vodka Game</h2>
-  <p>Top Up Game Cepat dan Mudah</p>
+  <div class="nav">
+    <span class="menu">☰</span>
+    <div class="logo">⚡ VODKA GAME</div>
+    <span>⌕</span>
+  </div>
 </header>
 
-<main>
-  <h3>Pilih Game Favoritmu</h3>
+<div class="container">
 
-  <div class="game">
-    <h3>Mobile Legends</h3>
-    <button onclick="pilih('Mobile Legends')">
-      Pilih Game
-    </button>
+  <div class="banner">
+    <h1>VODKA GAME</h1>
+    <p>TOP UP GAME MURAH, AMAN & CEPAT</p>
+    <p style="margin-top:12px">✨ Pelayanan 24 Jam ✨</p>
   </div>
 
-  <div class="game">
-    <h3>Free Fire</h3>
-    <button onclick="pilih('Free Fire')">
-      Pilih Game
-    </button>
+  <div class="tabs">
+    <button class="active" onclick="setTab(this,'Topup')">Topup</button>
+    <button onclick="setTab(this,'Voucher')">Voucher</button>
+    <button onclick="setTab(this,'Pulsa')">Pulsa</button>
   </div>
 
-  <div class="game">
-    <h3>PUBG Mobile</h3>
-    <button onclick="pilih('PUBG Mobile')">
-      Pilih Game
-    </button>
+  <input class="search" id="search"
+    placeholder="🔍 Cari game favoritmu..."
+    oninput="searchGame()">
+
+  <h2 class="section-title">🎮 Pilih Game Favoritmu</h2>
+
+  <div class="games" id="games">
+
+    <div class="game" data-name="Free Fire"
+      onclick="openGame('Free Fire')">
+      <img src="images/FREEFIRE.jpeg">
+      <h3>Free Fire</h3>
+    </div>
+
+    <div class="game" data-name="Mobile Legends"
+      onclick="openGame('Mobile Legends')">
+     <img src="images/MOBILE LEGENDS.jpeg">
+      <h3>Mobile Legends</h3>
+    </div>
+
+    <div class="game" data-name="PUBG Mobile"
+      onclick="openGame('PUBG Mobile')">
+      <img src="images/PUBG MOBILE.jpeg">
+      <h3>PUBG Mobile</h3>
+    </div>
+
+    <div class="game" data-name="Genshin Impact"
+      onclick="openGame('Genshin Impact')">
+      <img src="images/GENSHIN IMPACT.jpeg">
+      <h3>Genshin Impact</h3>
+    </div>
+
+    <div class="game" data-name="Honor of Kings"
+      onclick="openGame('Honor of Kings')">
+      <img src="images/HONOR OF KINGS.jpeg">
+      <h3>Honor of Kings</h3>
+    </div>
+
+    <div class="game" data-name="Roblox"
+      onclick="openGame('Roblox')">
+      <img src="images/ROBLOX.png">
+      <h3>Roblox</h3>
+    </div>
+
   </div>
-</main>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">×</span>
+
+    <h2 id="gameName">Top Up Game</h2>
+    <p>Masukkan data akun game kamu.</p>
+
+    <input id="userId" placeholder="Masukkan User ID">
+
+    <div id="zoneField" style="display:none;">
+  <input id="zoneId" placeholder="Masukkan Zone ID">
+    </div>
+
+    <h3 style="margin-top:15px">Pilih Nominal</h3>
+
+    <div class="nominals" id="nominals"></div>
+
+    <button class="order" onclick="orderGame()">
+      PESAN SEKARANG
+    </button>
+
+    <p style="font-size:12px;color:gray;margin-top:12px">
+      Pastikan User ID sudah benar sebelum memesan.
+    </p>
+  </div>
+</div>
+
+<footer>
+  <h3>⚡ VODKA GAME</h3>
+  <p style="margin-top:10px">
+    Website Top Up Game Murah dan Terpercaya
+  </p>
+  <p style="margin-top:10px">
+    © 2026 VODKA GAME
+  </p>
+</footer>
+
+<a class="help"
+href="https://wa.me/6282256596046"
+target="_blank">☏ Bantuan</a>
 
 <script>
-function pilih(game) {
-  alert("Kamu memilih " + game);
+let selectedGame = "";
+let selectedNominal = "";
+let selectedPrice = "";
+
+const products = {
+  "Free Fire": [
+    ["5 Diamond","1.000"],
+    ["12 Diamond","2.000"],
+    ["50 Diamond","8.000"],
+    ["70 Diamond","10.000"],
+    ["140 Diamond","20.000"],
+    ["355 Diamond","50.000"]
+  ],
+
+  "Mobile Legends": [
+    ["5 Diamond","2.000"],
+    ["12 Diamond","4.000"],
+    ["28 Diamond","9.000"],
+    ["86 Diamond","25.000"],
+    ["172 Diamond","48.000"],
+    ["257 Diamond","70.000"]
+  ],
+
+  "PUBG Mobile": [
+    ["60 UC","15.000"],
+    ["120 UC","30.000"],
+    ["325 UC","75.000"],
+    ["660 UC","145.000"]
+  ],
+
+  "Genshin Impact": [
+    ["60 Genesis Crystal","15.000"],
+    ["300 Genesis Crystal","75.000"],
+    ["980 Genesis Crystal","230.000"]
+  ],
+
+  "Honor of Kings": [
+    ["80 Tokens","15.000"],
+    ["240 Tokens","45.000"],
+    ["400 Tokens","75.000"]
+  ],
+
+  "Roblox": [
+    ["80 Robux","20.000"],
+    ["160 Robux","40.000"],
+    ["400 Robux","95.000"]
+  ]
+};
+
+function setTab(button, name) {
+  document.querySelectorAll(".tabs button")
+    .forEach(b => b.classList.remove("active"));
+
+  button.classList.add("active");
+}
+
+function searchGame() {
+  let keyword = document.getElementById("search")
+    .value.toLowerCase();
+
+  document.querySelectorAll(".game").forEach(game => {
+    game.style.display =
+      game.dataset.name.toLowerCase().includes(keyword)
+      ? "block" : "none";
+  });
+}
+
+function openGame(name) {
+  selectedGame = name;
+  aturZoneGame(name);
+  selectedNominal = "";
+  selectedPrice = "";
+
+  document.getElementById("gameName").innerText = name;
+  document.getElementById("userId").value = "";
+  document.getElementById("zoneId").value = "";
+
+  let list = document.getElementById("nominals");
+  list.innerHTML = "";
+
+  products[name].forEach(item => {
+    let div = document.createElement("div");
+    div.className = "nominal";
+
+    div.innerHTML =
+      item[0] + "<b>Rp " + item[1] + "</b>";
+
+    div.onclick = function() {
+      document.querySelectorAll(".nominal")
+        .forEach(n => n.classList.remove("selected"));
+
+      div.classList.add("selected");
+
+      selectedNominal = item[0];
+      selectedPrice = item[1];
+    };
+
+    list.appendChild(div);
+  });
+
+  document.getElementById("modal").style.display = "block";
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+
+function orderGame() {
+  let id = document.getElementById("userId").value.trim();
+  let zone = document.getElementById("zoneId").value.trim();
+
+  if (!id) {
+    alert("Masukkan User ID terlebih dahulu!");
+    return;
+  }
+
+  if (!selectedNominal) {
+    alert("Silakan pilih nominal top up!");
+    return;
+  }
+
+  let message =
+    "Halo VODKA GAME, saya ingin memesan:%0A%0A" +
+    "Game: " + encodeURIComponent(selectedGame) +
+    "%0AUser ID: " + encodeURIComponent(id) +
+    "%0AZone ID: " + encodeURIComponent(zone || "-") +
+    "%0ANominal: " + encodeURIComponent(selectedNominal) +
+    "%0AHarga: Rp " + encodeURIComponent(selectedPrice) +
+    "%0A%0AMohon diproses.";
+
+  window.open(
+    "https://wa.me/6282256596046?text=" + message,
+    "_blank"
+  );
+}
+function aturZoneGame(namaGame) {
+  const zoneField = document.getElementById("zoneField");
+  const zoneInput = document.getElementById("zoneId");
+
+  const perluZone = namaGame
+    .toLowerCase()
+    .includes("mobile legends");
+
+  zoneField.style.display = perluZone ? "block" : "none";
+  zoneInput.required = perluZone;
+  zoneInput.value = "";
 }
 </script>
 
