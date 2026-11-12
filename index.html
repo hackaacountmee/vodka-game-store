@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vodka Game</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #0f172a;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background: #172554;
+      padding: 22px;
+      text-align: center;
+    }
+
+    header h2 {
+      color: #38bdf8;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    .game {
+      background: #1e293b;
+      padding: 18px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h2>Vodka Game</h2>
+  <p>Top Up Game Cepat dan Mudah</p>
+</header>
+
+<main>
+  <h3>Pilih Game Favoritmu</h3>
+
+  <div class="game">
+    <h3>Mobile Legends</h3>
+    <button onclick="pilih('Mobile Legends')">
+      Pilih Game
+    </button>
+  </div>
+
+  <div class="game">
+    <h3>Free Fire</h3>
+    <button onclick="pilih('Free Fire')">
+      Pilih Game
+    </button>
+  </div>
+
+  <div class="game">
+    <h3>PUBG Mobile</h3>
+    <button onclick="pilih('PUBG Mobile')">
+      Pilih Game
+    </button>
+  </div>
+</main>
+
+<script>
+function pilih(game) {
+  alert("Kamu memilih " + game);
+}
+</script>
+
+</body>
+</html>
