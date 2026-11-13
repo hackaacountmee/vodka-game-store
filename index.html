@@ -358,13 +358,7 @@ const products = {
     ["355 Diamond","50.000"]
   ],
 
-  "Mobile Legends": [
-    ["5 Diamond","2.000"],
-    ["12 Diamond","4.000"],
-    ["28 Diamond","9.000"],
-    ["86 Diamond","25.000"],
-    ["172 Diamond","48.000"],
-    ["257 Diamond","70.000"]
+  ""Mobile Legends": [],
   ],
 
   "PUBG Mobile": [
@@ -392,6 +386,40 @@ const products = {
     ["400 Robux","95.000"]
   ]
 };
+
+let selectedSku = "";
+
+async function loadMobileLegends() {
+  try {
+    const response = await fetch(
+      "https://vodka-game-api.vodkagame.workers.dev/api/products"
+    );
+
+    if (!response.ok) {
+      throw new Error("Gagal mengambil produk");
+    }
+
+    const result = await response.json();
+
+    products["Mobile Legends"] = (result.data || [])
+      .filter(p =>
+        p.status === "active" &&
+        p.sku_code?.startsWith("mlid")
+      )
+      .map(p => [
+        p.name,
+        new Intl.NumberFormat("id-ID").format(p.price),
+        p.sku_code
+      ]);
+
+    console.log("Produk Melo berhasil dimuat");
+  } catch (error) {
+    console.error(error);
+    alert("Gagal memuat produk Mobile Legends");
+  }
+}
+
+loadMobileLegends();
 
 function setTab(button, name) {
   document.querySelectorAll(".tabs button")
@@ -439,6 +467,7 @@ function openGame(name) {
 
       selectedNominal = item[0];
       selectedPrice = item[1];
+      selectedSku = item[2];
     };
 
     list.appendChild(div);
